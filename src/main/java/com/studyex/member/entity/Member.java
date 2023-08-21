@@ -28,7 +28,8 @@ public class Member {
     private String phoneNumber;
 
     @Builder
-    public Member(String email, String nickName, String password, String phoneNumber) {
+    public Member(Long id, String email, String nickName, String password, String phoneNumber) {
+        this.id = id;
         this.email = email;
         this.nickName = nickName;
         this.password = password;
@@ -36,7 +37,6 @@ public class Member {
     }
 
     public static Member of(SignUpRequest memberReq) {
-
         return Member.builder()
                 .email(memberReq.getEmail())
                 .nickName(memberReq.getNickName())
