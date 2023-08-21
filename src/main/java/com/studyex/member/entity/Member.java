@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -27,13 +24,17 @@ public class Member {
 
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
     @Builder
-    public Member(Long id, String email, String nickName, String password, String phoneNumber) {
+    public Member(Long id, String email, String nickName, String password, String phoneNumber, MemberType memberType) {
         this.id = id;
         this.email = email;
         this.nickName = nickName;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.memberType = memberType;
     }
 
     public static Member of(SignUpRequest memberReq) {
@@ -42,6 +43,7 @@ public class Member {
                 .nickName(memberReq.getNickName())
                 .password(memberReq.getPassword())
                 .phoneNumber(memberReq.getPhoneNumber())
+                .memberType(MemberType.CUSTOMER)
                 .build();
     }
 }
