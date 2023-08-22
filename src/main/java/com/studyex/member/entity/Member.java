@@ -18,7 +18,7 @@ public class Member {
 
     private String email;
 
-    private String nickName;
+    private String name;
 
     private String password;
 
@@ -28,10 +28,10 @@ public class Member {
     private MemberType memberType;
 
     @Builder
-    public Member(Long id, String email, String nickName, String password, String phoneNumber, MemberType memberType) {
+    public Member(Long id, String email, String name, String password, String phoneNumber, MemberType memberType) {
         this.id = id;
+        this.name = name;
         this.email = email;
-        this.nickName = nickName;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.memberType = memberType;
@@ -40,7 +40,7 @@ public class Member {
     public static Member of(SignUpRequest memberReq) {
         return Member.builder()
                 .email(memberReq.getEmail())
-                .nickName(memberReq.getNickName())
+                .name(memberReq.getName())
                 .password(memberReq.getPassword())
                 .phoneNumber(memberReq.getPhoneNumber())
                 .memberType(MemberType.CUSTOMER)

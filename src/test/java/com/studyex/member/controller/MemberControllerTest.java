@@ -32,7 +32,7 @@ public class MemberControllerTest {
     void successSignUp() throws Exception {
         SignUpRequest req = SignUpRequest.builder()
                 .email("test@gmail.com")
-                .nickName("테스트닉네임")
+                .name("테스트네임")
                 .password("test12345")
                 .passwordConfirm("test12345")
                 .phoneNumber("01000000000")
@@ -52,7 +52,7 @@ public class MemberControllerTest {
     void failSignUpBecauseDuplicateEmail() throws Exception {
         SignUpRequest req = SignUpRequest.builder()
                 .email("test@gmail.com")
-                .nickName("테스트닉네임")
+                .name("테스트네임")
                 .password("test12345")
                 .passwordConfirm("test12345")
                 .phoneNumber("01000000000")
@@ -62,37 +62,7 @@ public class MemberControllerTest {
 
         SignUpRequest req2 = SignUpRequest.builder()
                 .email("test@gmail.com")
-                .nickName("테스트닉네임2")
-                .password("test12345")
-                .passwordConfirm("test12345")
-                .phoneNumber("01000000001")
-                .build();
-
-        String json = objectMapper.writeValueAsString(req2);
-        mockMvc.perform(post("/members")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
-    }
-
-    // 회원 가입 실패 , 닉네임 중복
-    @Test
-    @DisplayName("회원가입 실패 - 닉네임 중복")
-    void failSignUpBecauseDuplicateNickName() throws Exception {
-        SignUpRequest req = SignUpRequest.builder()
-                .email("test@gmail.com")
-                .nickName("테스트닉네임")
-                .password("test12345")
-                .passwordConfirm("test12345")
-                .phoneNumber("01000000000")
-                .build();
-
-        memberService.signUp(req);
-
-        SignUpRequest req2 = SignUpRequest.builder()
-                .email("test2@gmail.com")
-                .nickName("테스트닉네임")
+                .name("테스트네임2")
                 .password("test12345")
                 .passwordConfirm("test12345")
                 .phoneNumber("01000000001")
@@ -112,7 +82,7 @@ public class MemberControllerTest {
     void failSignUpBecauseNotSamePwdAndPwdConfirm() throws Exception {
         SignUpRequest req = SignUpRequest.builder()
                 .email("test@gmail.com")
-                .nickName("테스트닉네임")
+                .name("테스트닉네임")
                 .password("test12345")
                 .passwordConfirm("test12345789")
                 .phoneNumber("01000000000")
@@ -128,6 +98,8 @@ public class MemberControllerTest {
 
     // 회원 가입 실패 - 이메일 미입력
 
+
+
     // 회원 가입 실패 - 이메일 패턴이 아닌 경우
 
     // 회원 가입 실패 - 닉네임 미입력
@@ -137,6 +109,8 @@ public class MemberControllerTest {
     // 회원 가입 실패 - 비밀번호 확인 미입력
 
     // 회원 가입 실패 - 핸드폰 번호 미입력
+
+    // 회원 가입 실패 - 전체 미입력
 
 
 }

@@ -14,7 +14,7 @@ public class FindMemberResponse {
 
     private String email;
 
-    private String nickName;
+    private String name;
 
     private String password;
 
@@ -23,10 +23,10 @@ public class FindMemberResponse {
     private MemberType memberType;
 
     @Builder
-    public FindMemberResponse(Long id, String email, String nickName, String password, String phoneNumber, MemberType memberType) {
+    public FindMemberResponse(Long id, String email, String name, String password, String phoneNumber, MemberType memberType) {
         this.id = id;
         this.email = email;
-        this.nickName = nickName;
+        this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.memberType = memberType;
@@ -36,7 +36,7 @@ public class FindMemberResponse {
         return FindMemberResponse.builder()
                 .id(member.getId())
                 .email(member.getEmail())
-                .nickName(member.getNickName())
+                .name(member.getName())
                 .password(member.getPassword())
                 .phoneNumber(member.getPhoneNumber())
                 .memberType(member.getMemberType())

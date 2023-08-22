@@ -1,6 +1,8 @@
 package com.studyex.member.service;
 
 
+import com.studyex.global.error.code.MemberErrorCode;
+import com.studyex.global.error.exception.RestApiException;
 import com.studyex.member.dto.SignUpRequest;
 import com.studyex.member.dto.FindMemberResponse;
 import com.studyex.member.entity.Member;
@@ -25,15 +27,11 @@ public class MemberServiceImpl implements MemberService {
     private boolean validateMemberRequest(SignUpRequest memberReq) {
 
         if (isNotSamePwdAndPwdConfirm(memberReq)) {
-            throw new RuntimeException("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            throw new RestApiException(MemberErrorCode.NOT_SAME_PASSWORD_PASSWORD_CONFIRM);
         }
 
         if (isDuplicateEmail(memberReq.getEmail())) {
-            throw new RuntimeException("중복된 이메일입니다.");
-        }
-
-        if (isDuplicateNickName(memberReq.getNickName())) {
-            throw new RuntimeException("중복된 닉네임입니다.");
+            throw new RestApiException(MemberErrorCode.DUPLICATE_EMAIL);
         }
 
         return true;
@@ -49,30 +47,12 @@ public class MemberServiceImpl implements MemberService {
         return !memberReq.getPassword().equals(memberReq.getPasswordConfirm());
     }
 
-    private boolean isDuplicateNickName(String nickName) {
-        FindMemberResponse findMember = findMemberByNickName(nickName);
-        return !"empty".equals(findMember.getEmail());
-    }
-
     public FindMemberResponse findMemberByEmail(String mail) {
         Member findMember = memberRepository.findByEmail(mail)
                 .orElse(Member.builder()
                         .id(0L)
                         .email("empty")
-                        .nickName("empty")
-                        .password("empty")
-                        .phoneNumber("empty")
-                        .build());
-
-        return FindMemberResponse.of(findMember);
-    }
-
-    public FindMemberResponse findMemberByNickName(String mail) {
-        Member findMember = memberRepository.findByNickName(mail)
-                .orElse(Member.builder()
-                        .id(0L)
-                        .email("empty")
-                        .nickName("empty")
+                        .name("empty")
                         .password("empty")
                         .phoneNumber("empty")
                         .build());
