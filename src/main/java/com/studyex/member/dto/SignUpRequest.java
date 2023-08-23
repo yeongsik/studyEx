@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 @Getter
@@ -27,6 +26,7 @@ public class SignUpRequest {
     private String passwordConfirm;
 
     @NotBlank(message = "핸드폰 번호를 입력해주세요.")
+    @Pattern(regexp = "^01\\d{8,9}$" , message = "잘못된 형식 입니다.")
     private String phoneNumber;
 
     @Builder

@@ -1,15 +1,19 @@
 package com.studyex.member.entity;
 
+import com.studyex.member.dto.EditMemberRequest;
+import com.studyex.member.dto.EditPwdRequest;
 import com.studyex.member.dto.SignUpRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@DynamicUpdate
 public class Member {
 
     @Id
@@ -45,5 +49,13 @@ public class Member {
                 .phoneNumber(memberReq.getPhoneNumber())
                 .memberType(MemberType.CUSTOMER)
                 .build();
+    }
+
+    public void editMember(EditMemberRequest editMemberRequest) {
+        this.phoneNumber = editMemberRequest.getPhoneNumber();
+    }
+
+    public void editPassword(EditPwdRequest editPwdRequest) {
+        this.password = editPwdRequest.getNewPassword();
     }
 }
