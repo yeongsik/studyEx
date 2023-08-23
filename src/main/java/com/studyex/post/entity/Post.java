@@ -1,13 +1,12 @@
 package com.studyex.post.entity;
 
+import com.studyex.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,20 +21,27 @@ public class Post {
 
     private String type;
 
-    private String worker;
+    @OneToMany
+    private List<Member> worker;
 
-    private String firstChecker;
+    @OneToOne
+    private Member customer;
 
-    private String state;
+    @OneToOne
+    private Member firstChecker;
+
+    @Enumerated(EnumType.STRING)
+    private PostState state;
 
     private String contents;
 
     @Builder
-    public Post(Long id, String title, String type, String worker, String firstChecker, String state, String contents) {
+    public Post(Long id, String title, String type, List<Member> worker, Member customer, Member firstChecker, PostState state, String contents) {
         this.id = id;
         this.title = title;
         this.type = type;
         this.worker = worker;
+        this.customer = customer;
         this.firstChecker = firstChecker;
         this.state = state;
         this.contents = contents;
