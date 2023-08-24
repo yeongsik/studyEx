@@ -331,7 +331,7 @@ class MemberServiceTest {
                 .build();
 
         // when
-        LoginResponse response = memberService.login(loginRequest);
+        LoginMemberInfo response = memberService.login(loginRequest);
 
         // then
         assertEquals(save.getId(), response.getId());
