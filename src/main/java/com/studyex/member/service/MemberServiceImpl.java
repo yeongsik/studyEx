@@ -111,7 +111,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public LoginResponse login(LoginRequest loginRequest) {
+    public LoginMemberInfo login(LoginRequest loginRequest) {
         Member findMember = memberRepository.findByEmail(loginRequest.getEmail()).orElseThrow(
                 () -> new RestApiException(MemberErrorCode.EMPTY_MEMBER)
         );
@@ -120,6 +120,6 @@ public class MemberServiceImpl implements MemberService {
             throw new RestApiException(MemberErrorCode.NOT_VALID_PWD);
         }
 
-        return LoginResponse.of(findMember);
+        return LoginMemberInfo.of(findMember);
     }
 }

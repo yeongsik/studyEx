@@ -3,7 +3,6 @@ package com.studyex.member.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studyex.global.error.code.CommonErrorCode;
 import com.studyex.global.error.code.MemberErrorCode;
-import com.studyex.global.error.exception.RestApiException;
 import com.studyex.member.dto.*;
 import com.studyex.member.entity.Member;
 import com.studyex.member.entity.MemberType;
@@ -711,7 +710,7 @@ public class MemberControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        LoginResponse loginUser = (LoginResponse) session.getAttribute("loginUser");
+        LoginMemberInfo loginUser = (LoginMemberInfo) session.getAttribute("loginUser");
 
         assertEquals(member.getEmail(), loginUser.getEmail());
         assertEquals(member.getName(), loginUser.getName());

@@ -16,5 +16,5 @@ public interface MemberService {
 
     void deleteMember(Long id, DeleteMemberRequest deleteMemberRequest);
 
-    LoginResponse login(LoginRequest loginRequest);
+    LoginMemberInfo login(LoginRequest loginRequest);
 }

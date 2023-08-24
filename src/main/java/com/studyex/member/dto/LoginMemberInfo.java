@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class LoginResponse {
+public class LoginMemberInfo {
 
     private Long id;
 
@@ -21,7 +21,7 @@ public class LoginResponse {
     private MemberType memberType;
 
     @Builder
-    public LoginResponse(Long id, String email, String name, String phoneNumber, MemberType memberType) {
+    public LoginMemberInfo(Long id, String email, String name, String phoneNumber, MemberType memberType) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -29,8 +29,8 @@ public class LoginResponse {
         this.memberType = memberType;
     }
 
-    public static LoginResponse of(Member member) {
-        return LoginResponse.builder()
+    public static LoginMemberInfo of(Member member) {
+        return LoginMemberInfo.builder()
                 .id(member.getId())
                 .email(member.getEmail())
                 .name(member.getName())

@@ -2,18 +2,16 @@ package com.studyex.member.entity;
 
 import com.studyex.member.dto.EditMemberRequest;
 import com.studyex.member.dto.EditPwdRequest;
+import com.studyex.member.dto.LoginMemberInfo;
 import com.studyex.member.dto.SignUpRequest;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@DynamicUpdate
+@ToString
 public class Member {
 
     @Id
@@ -51,11 +49,31 @@ public class Member {
                 .build();
     }
 
+    public static Member of(LoginMemberInfo memberReq) {
+        return Member.builder()
+                .email(memberReq.getEmail())
+                .name(memberReq.getName())
+                .phoneNumber(memberReq.getPhoneNumber())
+                .memberType(memberReq.getMemberType())
+                .build();
+    }
+
     public void editMember(EditMemberRequest editMemberRequest) {
         this.phoneNumber = editMemberRequest.getPhoneNumber();
     }
 
     public void editPassword(EditPwdRequest editPwdRequest) {
         this.password = editPwdRequest.getNewPassword();
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (!obj.getClass().equals(Member.class)) {
+            return false;
+        }
+
+        return this.toString().equals(obj.toString());
     }
 }
